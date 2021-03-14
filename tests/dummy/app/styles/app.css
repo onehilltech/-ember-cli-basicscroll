@@ -1,9 +1,9 @@
 html, body {
-  height: 2000px;
+  height: 1500px;
 }
 
 .box {
-  top: 200px;
+  top: 500px;
   position: relative;
 
   width: 5em;

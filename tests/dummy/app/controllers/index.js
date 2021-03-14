@@ -9,7 +9,7 @@ export default class IndexController extends Controller {
       },
       '--tx': {
         from: '-100px',
-          to: '100px'
+          to: '500px'
       }
     }
   }

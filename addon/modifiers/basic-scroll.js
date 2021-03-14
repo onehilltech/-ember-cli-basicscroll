@@ -10,17 +10,36 @@ export default class BasicScrollModifier extends Modifier {
     return this.args.named;
   }
 
-  get startBasicScroll () {
-    const { startBasicScroll = true } = this.args.named;
-    return startBasicScroll;
+  get start () {
+    const { start = true } = this.args.named;
+    return start;
   }
 
   didInstall () {
     let options = Object.assign ({}, this.defaultOptions, this.options, this.computedOptions);
     this._bs = basicScroll.create (options);
 
-    if (this.startBasicScroll) {
+    if (this.start) {
       this._bs.start ();
+    }
+  }
+
+  didUpdateArguments () {
+    let start = this.start;
+
+    // Trigger an update this instance.
+    this._bs.update ();
+
+    if (this._bs.isActive () !== start) {
+      // The active state of the instance has changed. Use the start attribute to
+      // either start or stop the instance.
+
+      if (start) {
+        this._bs.start ();
+      }
+      else {
+        this._bs.stop ();
+      }
     }
   }
 
@@ -33,62 +52,7 @@ export default class BasicScrollModifier extends Modifier {
   }
 
   get computedOptions () {
-    return { elem: this.element, from: this.from, to: this.to }
-  }
-
-  get from () {
-    let from = this.args.named.from || 'auto';
-
-    if (isNone (from)) {
-      return null;
-    }
-
-    if (from !== 'auto') {
-      return from;
-    }
-
-    // Use the position style of this element to determine the value.
-
-    switch (this.position) {
-      case 'absolute':
-        return this.element.parentElement.offsetTop + this.element.offsetTop;
-
-      case 'relative':
-        return this.element.clientTop;
-
-      case 'fixed':
-        return this.element.offsetTop;
-
-      default:
-        return null;
-    }
-  }
-
-  get to () {
-    let to = this.args.named.to || 'auto';
-
-    if (isNone (to)) {
-      return null;
-    }
-
-    if (to !== 'auto') {
-      return to;
-    }
-
-    switch (this.position) {
-      case 'absolute':
-        return this.element.parentElement.offsetTop + this.element.offsetHeight;
-
-      case 'relative':
-        return this.element.offsetHeight;
-
-      default:
-        return null;
-    }
-  }
-
-  get distance () {
-    return this.to - this.from;
+    return { elem: this.element };
   }
 
   get position () {
