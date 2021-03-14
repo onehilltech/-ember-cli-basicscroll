@@ -7,7 +7,7 @@ standalone parallax scrolling with CSS variables
 Features
 ------------------------------------------------------------------------------
 
-* Wrapper for basicScroll library
+* Wrapper for [basicScroll](https://basicscroll.electerious.com/) library
 * Intuitive implementation for adding parallax scrolling to any element
 
 
