@@ -1,0 +1,12 @@
+html, body {
+  height: 100%;
+}
+
+.box {
+  width: 5em;
+  height: 5em;
+  background: linear-gradient(135deg, #3cdddd, #ff1ac6);
+  transform: translateX(var(--tx)) rotate(var(--r));
+  transition: transform .1s linear;
+  will-change: transform;
+}
